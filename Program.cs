@@ -14,8 +14,10 @@ Console.WriteLine("valor de b:"+b);
 */
 
 // Ejercicio 1
+
+/*
 Console.Write("Ingrese un numero: ");
-String strNumero = Console.ReadLine();
+string strNumero = Console.ReadLine();
 int intNumero = 0;
 
 if (!int.TryParse(strNumero, out intNumero))
@@ -35,6 +37,7 @@ else
 /**
  * Función que muestra un numero invertido
  */
+/*
 static void invertirNumero(int numero)
 {
     if (numero < 10)
@@ -48,3 +51,33 @@ static void invertirNumero(int numero)
         invertirNumero(aux);
     }
 }
+*/
+
+// Ejercicio 2
+static float sumar(int a, int b) {
+    return a + b;
+}
+static float restar(int a, int b) {
+    return a - b;
+}
+static float multiplicar(int a, int b) {
+    return a * b;
+}
+static float dividir(int a, int b) {
+    if (b == 0)
+    {
+        return -999999;
+    }
+    return a/b;
+}
+
+int opcion = 0;
+do
+{
+    Console.WriteLine("====== SELECCIONAR OPERACION ======");
+    Console.WriteLine("1. Sumar");
+    Console.WriteLine("2. Restar");
+    Console.WriteLine("3. Multiplicar");
+    Console.WriteLine("4. Dividir");
+    Console.WriteLine("5. Finalizar operaciones");
+} while (opcion == 5);

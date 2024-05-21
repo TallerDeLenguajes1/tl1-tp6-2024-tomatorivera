@@ -1,86 +1,61 @@
-﻿// Punto 7
-
-/*
-Console.WriteLine("Hello, World!");
-
-int a;
-int b;
-
-a=10;
-b=a;
-
-Console.WriteLine("valor de a:"+a);
-Console.WriteLine("valor de b:"+b);
-*/
-
-// Ejercicio 1
-
-/*
-Console.Write("Ingrese un numero: ");
-string strNumero = Console.ReadLine();
-int intNumero = 0;
-
-if (!int.TryParse(strNumero, out intNumero))
-{
-    Console.WriteLine("[!] El valor ingresado NO es un numero valido");
-}
-else if (intNumero <= 0)
-{
-    Console.WriteLine("[!] El numero debe ser mayor a cero");
-}
-else
-{
-    Console.Write("\n** Numero invertido: ");
-    invertirNumero(intNumero);
-}
-
-/**
- * Función que muestra un numero invertido
- */
-/*
-static void invertirNumero(int numero)
-{
-    if (numero < 10)
-        Console.Write(numero);
-    else
-    {
-        int ultimoDigito = numero%10;
-        int aux = Convert.ToInt32(numero/10);
-        Console.Write(ultimoDigito);
-        
-        invertirNumero(aux);
-    }
-}
-*/
-
-// Ejercicio 2
+﻿// Ejercicio 3
 using System.Reflection.Metadata;
 using Microsoft.VisualBasic;
 
-static float sumar(int a, int b) {
+static float sumar(float a, float b) {
     return a + b;
 }
-static float restar(int a, int b) {
+static float restar(float a, float b) {
     return a - b;
 }
-static float multiplicar(int a, int b) {
+static float multiplicar(float a, float b) {
     return a * b;
 }
-static float dividir(int a, int b) {
+static float dividir(float a, float b) {
     return a/b;
+}
+static float valorAbsoluto(float num) {
+    return Math.Abs(num);
+}
+static double cuadrado(float num) {
+    return Math.Pow(num, 2);
+}
+static double raizCuadrada(float num) {
+    return Math.Sqrt(num);
+}
+static double seno(float num) {
+    return Math.Sin(num);
+}
+static double coseno(float num) {
+    return Math.Cos(num);
+}
+static int parteEntera(float num) {
+    return Convert.ToInt32(num);
+}
+static float maximo(float numA, float numB) {
+    return Math.Max(numA, numB);
+}
+static float minimo(float numA, float numB) {
+    return Math.Min(numA, numB);
 }
 
 static float operar(int opcion) {
-    int numA;
-    int numB;
+    float numA;
+    float numB;
     float resultado = -999;
 
     Console.Write("\n\t* Ingrese el primer numero: ");
     string strNumeroA = Console.ReadLine();
-    Console.Write("\t* Ingrese el segundo numero: ");
-    string strNumeroB = Console.ReadLine();
 
-    if (int.TryParse(strNumeroA, out numA) && int.TryParse(strNumeroB, out numB)) {
+    string strNumeroB = "0"; // Lo inicializo en 0 para que pase la validacion en caso de no necesitar un segundo numero
+
+    // Si para una operacion no necesito dos numeros, no lo solicitare
+    if (opcion < 7) {
+        Console.Write("\t* Ingrese el segundo numero: ");
+        strNumeroB = Console.ReadLine(); 
+    } 
+
+    if (float.TryParse(strNumeroA, out numA) && float.TryParse(strNumeroB, out numB)) {
         
         switch (opcion)
         {
@@ -99,7 +74,31 @@ static float operar(int opcion) {
                 else           
                     resultado = dividir(numA, numB);
                 break;
-
+            case 5:
+                resultado = maximo(numA, numB);
+                break;
+            case 6:
+                resultado = minimo(numA, numB);
+                break;
+            case 7:
+                resultado = valorAbsoluto(numA);
+                break;
+            case 8:
+                resultado = (float) cuadrado(numA);
+                break;
+            case 9:
+                resultado = (float) raizCuadrada(numA);
+                break;
+            case 10:
+                resultado = (float) seno(numA);
+                break;
+            case 11:
+                resultado = (float) coseno(numA);
+                break;
+            case 12:
+                resultado = parteEntera(numA);
+                break;
+            
             // No debería llegar aquí por la verificación del main
             // pero por si acaso... Segunda validacion
             default:
@@ -116,6 +115,7 @@ static float operar(int opcion) {
 
 int indefinido = -999;
 int opcion = 0, numA, numB;
+int opcionSalir = 13;
 
 do
 {
@@ -124,18 +124,26 @@ do
     Console.WriteLine("2. Restar");
     Console.WriteLine("3. Multiplicar");
     Console.WriteLine("4. Dividir");
-    Console.WriteLine("5. Finalizar operaciones");
+    Console.WriteLine("5. Maximo entre dos numeros");
+    Console.WriteLine("6. Minimo entre dos numeros");
+    Console.WriteLine("7. Valor absoluto");
+    Console.WriteLine("8. Cuadrado");
+    Console.WriteLine("9. Raíz cuadrada");
+    Console.WriteLine("10. Seno");
+    Console.WriteLine("11. Coseno");
+    Console.WriteLine("12. Parte entera de un decimal");
+    Console.WriteLine("13. Finalizar operaciones");
 
     Console.Write("* Ingrese su opcion: ");
     string strOpcion = Console.ReadLine();
 
-    if ( !int.TryParse(strOpcion, out opcion) || (opcion < 1) || (opcion > 5) ) {
+    if ( !int.TryParse(strOpcion, out opcion) || (opcion < 1) || (opcion > opcionSalir) ) {
         Console.WriteLine("\n[!] Opcion invalida\n");
-    } else if (opcion == 5) {
+    } else if (opcion == opcionSalir) {
         Console.WriteLine("\n*** Programa finalizado ***\n");
     } else {
         float resultado = operar(opcion);
         if (resultado != indefinido) Console.WriteLine($"\n*** El resultado es: {resultado} ***\n");
     }
 
-} while (opcion != 5);
+} while (opcion != opcionSalir);
